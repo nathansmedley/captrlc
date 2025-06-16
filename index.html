@@ -1,101 +1,17 @@
+<!-- begin Moneypenny code -->
 <script type="text/javascript">
-  
-    
-//Hide book a demo button
-var checkButton = setInterval(function () {
-  var exitIntentButton = document.querySelector(".exitIntent__button");
-  if (exitIntentButton) {
-    exitIntentButton.style.display = "none";
-    clearInterval(checkButton); // Stop checking once the button is hidden
-  }
-}, 100); // Check every 100ms
-
-// Initialize Google Tag Manager
-window.dataLayer = window.dataLayer || [];
-function gtag() { dataLayer.push(arguments); }
-gtag('js', new Date());
-gtag('config', 'G-R9RQFYSHQT');
-
-// Function to check if the device is mobile
-function isMobile() {
-  return window.innerWidth < 1280;
-}
-
-// Function to load the live chat script
-function loadLiveChatScript() {
-  var scriptUrl = "https://storage.googleapis.com/moneypennychat/js/f031e725-53df-4157-b2d7-7f664b6cf425.js";
-
-  var scriptElement = document.createElement("script");
-  scriptElement.type = "text/javascript";
-  scriptElement.async = true;
-  scriptElement.src = scriptUrl;
-
-  scriptElement.onload = scriptElement.onreadystatechange = function () {
-    if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
-      // Moneypenny JS API code
-      Moneypenny.setCallback("StartChat", function (msg, type) {
-        gtag("event", "hasChatted", {
-          "event_category": "SnapEngage",
-          "event_label": "all",
-          "event_name": "snap_engage"
-        });
-        var RulerAnalyticsPayload = {
-          action: "FormCompletion",
-          variable: "LiveChat",
-        };
-        window.lintrk('track', { conversion_id: 15458625 });
-      });
-    }
-  };
-
-  var firstScript = document.getElementsByTagName("script")[0];
-  firstScript.parentNode.insertBefore(scriptElement, firstScript);
-}
-
-// Main function to control the display of buttons
-function rulerFire() {
-  try {
-    // Always load the live chat script unconditionally
-    console.log('Loading live chat script unconditionally');
-    loadLiveChatScript();
-    
-    /*
-    var now = new Date();
-    var currentHour = now.getHours();
-    var currentDay = now.getDay();
-
-    // Check if the current time is after 5 pm or before 9 am UK time and if it's a weekday (Monday to Friday)
-    if ((currentHour >= 17 && currentHour <= 23) || (currentHour >= 0 && currentHour < 9)) {
-      if (currentDay >= 1 && currentDay <= 5) {
-        if (isMobile()) {
-          console.log('Displaying WhatsApp button on mobile');
-          var whatsAppButton = document.querySelector(".whatsAppButton");
-          if (whatsAppButton) {
-            whatsAppButton.style.display = "block";
-          } else {
-            console.log("No WhatsApp button found");
-          }
-        } else {
-          console.log('Loading live chat script for desktop');
-          loadLiveChatScript();
-        }
-      } else {
-        console.log('Showing live chat button outside of weekday');
-        loadLiveChatScript();
+  (function () {
+    var se = document.createElement('script'); se.type = 'text/javascript'; se.async = true;
+    se.src = 'https://storage.googleapis.com/moneypennychat/js/b50cd297-46a3-463e-9b2d-ffd620c45a67.js';
+    var done = false;
+    se.onload = se.onreadystatechange = function () {
+      if (!done && (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete')) {
+        done = true;
+        /* Place your Moneypenny JS API code below */
+        /* Moneypenny.allowChatSound(true); Example JS API: Enable sounds for Visitors. */
       }
-    } else {
-      console.log('Showing live chat button outside of in-hours');
-      loadLiveChatScript();
-    }
-    */
-    
-  } catch (error) {
-    console.error('Error in rulerFire:', error);
-    setTimeout(rulerFire, 500); // Retry after a delay if an error occurs
-  }
-}
-
-// Execute the main function
-rulerFire();
-  
+    };
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(se, s);
+  })();
 </script>
+<!-- end Moneypenny code -->
