@@ -1,17 +1,37 @@
-<!-- begin Moneypenny code -->
-<script type="text/javascript">
-  (function () {
-    var se = document.createElement('script'); se.type = 'text/javascript'; se.async = true;
-    se.src = 'https://storage.googleapis.com/moneypennychat/js/b50cd297-46a3-463e-9b2d-ffd620c45a67.js';
-    var done = false;
-    se.onload = se.onreadystatechange = function () {
-      if (!done && (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete')) {
-        done = true;
-        /* Place your Moneypenny JS API code below */
-        /* Moneypenny.allowChatSound(true); Example JS API: Enable sounds for Visitors. */
-      }
-    };
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(se, s);
-  })();
-</script>
-<!-- end Moneypenny code -->
+<head>
+  <title>Moneypenny Chat</title>
+  <!-- begin Moneypenny code -->
+  <script type="text/javascript">
+    (function () {
+      var se = document.createElement('script');
+      se.type = 'text/javascript';
+      se.async = true;
+      se.src = 'https://storage.googleapis.com/moneypennychat/js/b50cd297-46a3-463e-9b2d-ffd620c45a67.js';
+
+      var done = false;
+      se.onload = se.onreadystatechange = function () {
+        if (!done && (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete')) {
+          done = true;
+          // Wait for Moneypenny to be defined, then call startLink
+          if (typeof Moneypenny !== 'undefined' && typeof Moneypenny.startLink === 'function') {
+            Moneypenny.startLink();
+          } else {
+            // Optional: Retry if Moneypenny is not yet defined (edge case)
+            var interval = setInterval(function () {
+              if (typeof Moneypenny !== 'undefined' && typeof Moneypenny.startLink === 'function') {
+                clearInterval(interval);
+                Moneypenny.startLink();
+              }
+            }, 100);
+          }
+        }
+      };
+      se.onerror = function () {
+        console.error('Failed to load Moneypenny script.');
+      };
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(se, s);
+    })();
+  </script>
+  <!-- end Moneypenny code -->
+</head>
